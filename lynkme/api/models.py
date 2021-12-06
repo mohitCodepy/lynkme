@@ -15,10 +15,10 @@ def get_random_code():
     return code
 
 class Zone(BaseClass):
-    zone_num = models.CharField(max_length = 6, default = " ", unique = True, blank=True)
-    host = models.CharField(max_length = 50, default = '', blank=True, unique = True)
+    zone_num = models.CharField(max_length = 6, default = get_random_code, unique = True)
+    host = models.CharField(max_length = 50, default = '', unique = True)
     guest_can_pause = models.BooleanField(default = False)
-    votes_to_skip = models.PositiveSmallIntegerField(default = 1)
+    votes_to_skip = models.PositiveSmallIntegerField(default = 1, blank=True)
 
 
     def save(self, *args, **kwargs):

@@ -1,14 +1,17 @@
 from django.db import models
 from django.db.models import fields
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers 
 from .models import Zone
 
-class ZoneSerializer(ModelSerializer):
+class ZoneSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Zone
         fields = '__all__'
 
-class CreateZoneSerializer(ModelSerializer):
+
+class CreateZoneSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Zone
         fields = ('guest_can_pause', 'votes_to_skip')

@@ -35,7 +35,7 @@ class CreateZoneAPIView(ListAPIView):
             serialized = ZoneSerializer(zone_queryset)
             return Response(serialized.data, status = status.HTTP_201_CREATED)
         print(serializer.errors)
-        return Response(f'Something went wrong {serializer.errors}' , status = status.HTTP_201_CREATED)
+        return Response(f'Something went wrong {serializer.errors}' , status = status.HTTP_400_BAD_REQUEST)
 
                 
 

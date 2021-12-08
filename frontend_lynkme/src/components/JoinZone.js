@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
+import { Col, Container, Row } from "react-bootstrap";
 export default class JoinZone extends Component {
   render() {
     return (
       <>
         <div>
-          <Button/>
+
             <h1>Create Room</h1>
-            <div className="col-sm-6">
-                <button type="radio" >Guest Can Pause</button>
-                
-            </div>
+            <Container>
+              <Row>
+            <Col sm="12">
+        
+            </Col>
+                </Row>
+            </Container>
+                {/* <button type="radio" >Guest Can Pause</button>
+            </div> */}
         </div>
       </>
     );

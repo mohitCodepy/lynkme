@@ -38,6 +38,13 @@
   width: 300px;
   min-height: 5vh;
 }
+.choosezone-class{
+  transition: all;
+  transition-delay: 0.4s ease;
+  transition-property: all;
+}
+
+
 
 @keyframes gradient {
   0% {

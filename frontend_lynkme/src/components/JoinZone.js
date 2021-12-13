@@ -1,16 +1,19 @@
 import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, InputGroup, Row } from "react-bootstrap";
 export default class JoinZone extends Component {
   render() {
     return (
       <>
         <div>
 
-            <h1>Create Room</h1>
+           
             <Container>
               <Row>
+              <h1>Join Zone</h1>
             <Col sm="12">
-        
+                <InputGroup >
+                  Enter the Room Name
+                </InputGroup>
             </Col>
                 </Row>
             </Container>

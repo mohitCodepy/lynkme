@@ -12,38 +12,51 @@
   animation: gradient 15s ease infinite;
   justify-content: center;
   display: flex;
-  align-items: center;
+ 
+}
+
+.chooose-zone-div{
+  align-items:center;
+  display: flex;
+  justify-content: center;
+  border: #23d5ab;
+}
+
+.choose-zone-inner{
+  display: flex;
+  justify-content: center;
+  border: #23d5ab 2px;
+}
+
+.upper-div{
+  position: relative;
+  height: 100vh;
 }
 
 .create-btn {
-  float: right;
+  /* float: right; */
   background: linear-gradient(-45deg,  #e73c7e, #23a6d5,#b723d5b2, #ee7752);
+  /* background: white; */
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   color: white;
   font-weight: bolder;
   border: transparent;
-  width: 300px;
+  width: 200px;
   min-height: 5vh;
 }
 
 .join-btn {
-  float: left;
+
   background: linear-gradient(-45deg,#e73c7e, #eeeb52, #d523b7ab, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   color: white;
   font-weight: bolder;
   border: transparent;
-  width: 300px;
+  width: 200px;
   min-height: 5vh;
 }
-.choosezone-class{
-  transition: all;
-  transition-delay: 0.4s ease;
-  transition-property: all;
-}
-
 
 
 @keyframes gradient {

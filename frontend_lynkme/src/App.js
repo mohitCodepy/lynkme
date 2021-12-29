@@ -1,3 +1,5 @@
+
+
 import "./App.css";
 import ChooseZone from "./components/ChooseZone";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,7 +12,8 @@ import { useState } from "react";
 function App() {
   const [showCreate, setshowCreate] = useState(false)
   // const [showJoin, setshowJoin] = useState(false)
- 
+  
+  window.BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const Createtransition = useTransition(showCreate, {
     from : {position: 'absolute', opacity : 0, x : 200, y : 300, overflow : 'hidden'},
     enter : {opacity : 1, x : 0, y : 0},

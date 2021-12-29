@@ -17,10 +17,12 @@ export default class JoinZone extends Component {
               <Row>
                 <Col sm="12 text-center">
                   <FloatingLabel controlId="join-zone-label-id" label="Enter Zone Code" style={{ 'color': 'white', 'fontSize': 'normal' }}>
+
                     <Form.Control  type="text" placeholder="T1E2S3T4" 
                     className="join-class-input"
-                    style={{'color': 'white', 'fontWeight' : 'bolder', 'backgroundColor':'transparent', 'textAlign': 'center', 'fontSize': 'large', 'borderLeft': '0','borderRight': '0','borderTop': '0', 'borderBottomWidth': '3px', 'paddingTop': '35px', 'borderRadius': '19px'}} onFocus={this.removeBorder} autoComplete="off" />
+                    style={{'color': 'white', 'fontWeight' : 'bolder', 'backgroundColor':'transparent', 'textAlign': 'center', 'fontSize': 'large', 'borderLeft': '0','borderRight': '0','borderTop': '0', 'borderBottomWidth': '3px', 'paddingTop': '35px', 'borderRadius': '7px'}} onFocus={this.removeBorder} autoComplete="off" />
                   </FloatingLabel>
+                  
                 </Col>
                 {/* <Col sm="6">
                                 <Form.Check

@@ -29,7 +29,7 @@ function App() {
       <div className="main">
         <div className="container">
           <div className="row flex-column-reverse flex-md-row">
-            <div className="col-md-6 chooose-zone-div overflow-hidden border">
+            <div className="col-md-6 chooose-zone-div overflow-hidden">
               <ChooseZone setshowCreate = {setshowCreate} showCreate={showCreate}/>
               </div>
               {/* <div className="col-md-6 col-sm-12 upper-div justify-content-center d-flex align-items-center">
@@ -37,7 +37,7 @@ function App() {
                 item ? <animated.div style={style}> <DummyDiv /> </animated.div> : '' 
               )}
               </div>  */}
-              <div className="col-md-6 upper-div justify-content-center d-flex align-items-center overflow-hidden border">
+              <div className="col-md-6 upper-div justify-content-center d-flex align-items-center overflow-hidden">
                 {Createtransition((style, item) =>
                   item ? <animated.div style={style}> <CreateZone /> </animated.div> : <animated.div style={style}> <JoinZone /> </animated.div> 
                 )}

@@ -27,6 +27,6 @@ class Zone(BaseClass):
             get_random_code()
         self.zone_num = code
         return super().save(*args, **kwargs)
-    def __str__(self) -> str:
 
+    def __str__(self) -> str:
         return f'{self.zone_num}'

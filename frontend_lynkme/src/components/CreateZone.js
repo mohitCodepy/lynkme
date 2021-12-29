@@ -3,11 +3,11 @@ import { Form, Row, Col, Button, Container } from "react-bootstrap";
 export default class CreateZone extends Component {
     render() {
         return (
-            <div className="border create-zone-card">
+            <div className="create-zone-card">
                 <Form>
                     <Container>
                         <Row>
-                            <Col sm="6">
+                            <Col sm="6 text-start">
                                 <Form.Check
                                     inline
                                     label="Play/Pause"
@@ -17,7 +17,7 @@ export default class CreateZone extends Component {
 
                                 />
                             </Col>
-                            <Col sm="6">
+                            <Col sm="6 text-end">
                                 <Form.Check
                                     inline
                                     label="Disable"

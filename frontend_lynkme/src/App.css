@@ -76,6 +76,13 @@
   align-items:center; 
 }
 
+.form-control:focus {
+  box-shadow: none;
+}
+
+.join-class-input::-webkit-input-placeholder {
+  color: #e7f70a
+}
 
 @keyframes gradient {
   0% {

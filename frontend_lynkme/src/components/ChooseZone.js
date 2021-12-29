@@ -17,7 +17,7 @@ export default class ChooseZone extends Component {
     render() {
         return (
             <Container className="choose-zone-inner">
-                <Row className="d-block d-md-flex " style={{ 'align-items': 'center' }}>
+                <Row className="d-block d-md-flex " style={{ 'alignItems': 'center' }}>
                     <Col md="12" sm="12" >
                         <Button className="zone-btn rounded-pill" onClick={this.showZone}>{this.props.showCreate ? 'Join' : 'Create' } Zone</Button>{' '}
                     </Col>

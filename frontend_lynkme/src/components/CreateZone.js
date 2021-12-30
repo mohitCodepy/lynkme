@@ -42,7 +42,6 @@ export default class CreateZone extends Component {
                                     type='radio'
                                     id='get_can_pause'
                                     onChange={this.playOption}
-
                                 />
                             </Col>
                             <Col sm="6 text-end">

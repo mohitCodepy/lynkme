@@ -8,8 +8,9 @@ export default class CreateZone extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            guestCanPause: false
+            guestCanPause: true
         }
+        
     }
 
     createZone = async () => {
@@ -40,6 +41,9 @@ export default class CreateZone extends Component {
         e.target.style.autoComplete = 'nope'
         e.target.style.borderColor = 'white';
       }
+    componentDidMount(){
+        document.getElementById('get_can_pause').checked = true;
+    }
     render() {
         return (
             <div className="create-zone-card">

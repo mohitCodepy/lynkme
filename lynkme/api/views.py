@@ -9,6 +9,18 @@ class ZoneAPIView(ListAPIView):
     queryset = Zone.objects.all()
     serializer_class = ZoneSerializer
 
+    def get(self, request, *args, **kwargs):
+        if kwargs.get('zone_num') != None:
+            zone_num = kwargs['zone_num']
+            if Zone.objects.filter(zone_num = zone_num).exists():
+                single_zone_obj = Zone.objects.filter(zone_num = zone_num)[0]
+                serialized_zone =  self.serializer_class(single_zone_obj)
+                return Response({'status' : 200, 'data' : serialized_zone.data}, status= status.HTTP_200_OK)
+            return Response({'status' : 404, 'data' : 'Zone not exists'}, status= status.HTTP_404_NOT_FOUND)
+        serialized_zones =  self.serializer_class(self.get_queryset(), many = True)
+        return Response({'status' : 200, 'data' : serialized_zones.data}, status= status.HTTP_200_OK)
+
+
 class CreateZoneAPIView(ListAPIView):
     serializer_class = CreateZoneSerializer
     queryset = Zone.objects.all()

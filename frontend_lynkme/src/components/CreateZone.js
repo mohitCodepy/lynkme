@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Button, Container, FloatingLabel } from "react-bootstrap";
 import axios from "axios";
+import { Navigate } from 'react-router-dom'
 
 
 export default class CreateZone extends Component {
@@ -8,14 +9,24 @@ export default class CreateZone extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            guestCanPause: true
+            guestCanPause: true,
+            numOfVotes : 1,
+            zoneCreated : false,
+            zoneNum : null
         }
-        
     }
 
     createZone = async () => {
         console.log('creating the zone')
-        await axios.get(`${window.BACKEND_URL}/zone`, { headers: { 'Content-Type': 'application/json' } }).then(console.log)
+        let data = {
+            "guest_can_pause": this.state.guestCanPause,
+            "votes_to_skip": this.state.numOfVotes
+        }
+    
+        const createdZone = await axios.post(`${window.BACKEND_URL}/create-zone/`, data, { headers: { 'Content-Type': 'application/json' } }).then(res => res);
+        console.log(createdZone.data.zone_num, 'created');
+        this.setState({zoneCreated : true})
+        this.setState({zoneNum : createdZone.data.zone_num})
     }
 
     playOption = (e) => {
@@ -25,6 +36,7 @@ export default class CreateZone extends Component {
 
     Disableplay = (e) => {
         this.setState({ guestCanPause: false })
+        this.setState({ numOfVotes : 1 })
         console.log('this is the event on chaning the rules', e.target, this.state.guestCanPause)
 
     }
@@ -33,7 +45,7 @@ export default class CreateZone extends Component {
         if(e.target.value < 1) {
             e.target.value = 1;
         }
-        this.setState({ num_of_votes : e.target.value })
+        this.setState({ numOfVotes : e.target.value })
     }
     removeBorder(e){
         // console.log(e.target, 'this is the data after click');
@@ -96,6 +108,7 @@ export default class CreateZone extends Component {
                         </Row>
                     </Container>
                 </Form>
+                { this.state.zoneCreated && <Navigate to={'/zone/' + this.state.zoneNum}/>}
             </div>
         );
     }

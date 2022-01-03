@@ -19,11 +19,11 @@ export default function PlayGround() {
         authenticateSpotify()
     }
 
-    authenticateSpotify = () =>{
-        const is_authenticated = fetch(`${window.BACKEND_URL}/is_authenticated`)
+    const authenticateSpotify = () =>{
+        const is_authenticated = fetch(`http://127.0.0.1:8000/spotify/is-authenticated`)
         .then((res) => res.json()).then((data) => { setisAuth(data.isAuthenticated);
              if(!data.isAuthenticated){
-                fetch(`${window.BACKEND_URL}/auth-url`).then((res) => res.json()).then((data) => window.location.replace(data.url))
+                fetch(`http://127.0.0.1:8000/spotify/auth-url`).then((res) => res.json()).then((data) => window.location.replace(data.url))
         }})
         console.log(is_authenticated, 'is auth')
     }

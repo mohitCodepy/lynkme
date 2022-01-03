@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 export default function PlayGround() {
 
     const [zoneData, setzoneData] = useState([])
+    const [isAuth, setisAuth] = useState(false)
 
     useEffect(() => {
         getZone();
@@ -15,12 +16,22 @@ export default function PlayGround() {
     const getZone = async () => {
         const fetchedZone = await fetch(`${window.BACKEND_URL}/zone/${param.zone}`).then(res => res.json());
         setzoneData(fetchedZone.data);
+        authenticateSpotify()
+    }
+
+    authenticateSpotify = () =>{
+        const is_authenticated = fetch(`${window.BACKEND_URL}/is_authenticated`)
+        .then((res) => res.json()).then((data) => { setisAuth(data.isAuthenticated);
+             if(!data.isAuthenticated){
+                fetch(`${window.BACKEND_URL}/auth-url`).then((res) => res.json()).then((data) => window.location.replace(data.url))
+        }})
+        console.log(is_authenticated, 'is auth')
     }
 
     
     return (
         <Container className='playground-class'>
-            <Row className='border justify-content-center d-flex'>
+            <Row className='border justify-content-center d-flex align-items-center' style={{'height' : '100vh'}}>
                 <Col sm="12" className='border justify-content-center d-flex'>
                     <ul>
                         <li>{zoneData.id}</li>
@@ -28,7 +39,6 @@ export default function PlayGround() {
                         <li>{!zoneData.guest_can_pause ? 'false' : 'true'}</li>
                         <li>{zoneData.host}</li>
                         <li>{zoneData.votes_to_skip}</li> 
-                        
                     </ul>
                 </Col>
             </Row>

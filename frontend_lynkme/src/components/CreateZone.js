@@ -12,7 +12,8 @@ export default class CreateZone extends Component {
             guestCanPause: true,
             numOfVotes : 1,
             zoneCreated : false,
-            zoneNum : ''
+            zoneNum : '',
+            isSpotifyAuthenticated : false,
         }
     }
 
@@ -56,6 +57,7 @@ export default class CreateZone extends Component {
     componentDidMount(){
         document.getElementById('get_can_pause').checked = true;
     }
+
     render() {
         return (
             <div className="create-zone-card">

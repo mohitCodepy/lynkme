@@ -12,7 +12,7 @@ export default class CreateZone extends Component {
             guestCanPause: true,
             numOfVotes : 1,
             zoneCreated : false,
-            zoneNum : null
+            zoneNum : ''
         }
     }
 
@@ -25,8 +25,8 @@ export default class CreateZone extends Component {
     
         const createdZone = await axios.post(`${window.BACKEND_URL}/create-zone/`, data, { headers: { 'Content-Type': 'application/json' } }).then(res => res);
         console.log(createdZone.data.zone_num, 'created');
-        this.setState({zoneCreated : true})
-        this.setState({zoneNum : createdZone.data.zone_num})
+        await this.setState({zoneCreated : true, zoneNum : createdZone.data.zone_num})
+        console.log(this.state.zoneNum, 'zone number')
     }
 
     playOption = (e) => {
@@ -108,7 +108,7 @@ export default class CreateZone extends Component {
                         </Row>
                     </Container>
                 </Form>
-                { this.state.zoneCreated && <Navigate to={'/zone/' + this.state.zoneNum}/>}
+                { this.state.zoneCreated && <Navigate to={'/music-playground/' + this.state.zoneNum}/>}
             </div>
         );
     }

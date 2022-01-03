@@ -9,7 +9,6 @@ import { useState } from "react";
 
 export default function HomePage() {
     const [showCreate, setshowCreate] = useState(false)
-    window.BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const Createtransition = useTransition(showCreate, {
         from: { position: 'absolute', opacity: 0, x: 200, y: 300, overflow: 'hidden' },
         enter: { opacity: 1, x: 0, y: 0 },

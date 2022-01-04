@@ -24,7 +24,7 @@ export default class CreateZone extends Component {
             "votes_to_skip": this.state.numOfVotes
         }
     
-        const createdZone = await axios.post(`${window.BACKEND_URL}/create-zone/`, data, { headers: { 'Content-Type': 'application/json' } }).then(res => res);
+        const createdZone = await axios.post(`${window.BACKEND_URL}/create-zone/`,data, { headers: { 'Content-Type': 'application/json' } }).then(res => res);
         console.log(createdZone.data.zone_num, 'created');
         await this.setState({zoneCreated : true, zoneNum : createdZone.data.zone_num})
         console.log(this.state.zoneNum, 'zone number')

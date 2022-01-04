@@ -9,6 +9,7 @@ from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL
 
 def get_user_token(session_id):
     user_token = SpotifyToken.objects.filter(user = session_id)
+    print('get user token ', user_token)
     if user_token.exists():
         return user_token[0]
     return None
@@ -23,13 +24,15 @@ def update_or_create_token(session_id, access_token, token_type, refresh_token, 
         token.expires_in = expires_in
         token.save(update_fields = ['access_token', 'token_type', 'refresh_token', 'expires_in'])
     else:
+        print(session_id, 'session_id')
         token = SpotifyToken.objects.create(user = session_id, access_token = access_token, token_type = token_type, refresh_token = refresh_token, expires_in = expires_in)
         token.save()
 
 def is_spotify_authenticated(session_id):
     token = get_user_token(session_id)
-    if token.exists():
-        expiry = token.expiry
+    print(token, 'is the token')
+    if token:
+        expiry = token.expires_in
         if expiry <= timezone.now():
             refresh_spotify_token(session_id)
         return True

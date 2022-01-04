@@ -128,4 +128,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
+SESSION_COOKIE_DOMAIN = '127.0.0.1'
+SESSION_COOKIE_SAMESITE = False
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_PATH = '/music-playground/'

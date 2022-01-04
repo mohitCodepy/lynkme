@@ -25,7 +25,8 @@ class CreateZoneAPIView(ListAPIView):
     serializer_class = CreateZoneSerializer
     queryset = Zone.objects.all()
     def post(self, request, *args, **kwargs):
-        if not self.request.session.exists(self.request.session.session_key):
+        print(self.request.session.session_key, ' is the session key before update')
+        if not request.session.exists(self.request.session.session_key):
             self.request.session.create()
         print(self.request, request, request.data)
         serializer = self.serializer_class(data = request.data)
@@ -34,6 +35,7 @@ class CreateZoneAPIView(ListAPIView):
             print('True')
             guest_can_pause = serializer.data.get('guest_can_pause')
             host = self.request.session.session_key
+            print(host, 'host is here')
             votes_to_skip = serializer.data.get('votes_to_skip')
             zone_queryset = Zone.objects.filter(host = host)
             if zone_queryset.exists():
@@ -50,6 +52,7 @@ class CreateZoneAPIView(ListAPIView):
         return Response(f'Something went wrong {serializer.errors}' , status = status.HTTP_400_BAD_REQUEST)
 
                 
-
+class UserToken(ListAPIView):
+    pass
 
 

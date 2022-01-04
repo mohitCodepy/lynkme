@@ -16,18 +16,20 @@ export default function PlayGround() {
     const getZone = async () => {
         const fetchedZone = await fetch(`${window.BACKEND_URL}/zone/${param.zone}`).then(res => res.json());
         setzoneData(fetchedZone.data);
-        authenticateSpotify()
+        await authenticateSpotify()
     }
 
-    const authenticateSpotify = () =>{
-        const is_authenticated = fetch(`http://127.0.0.1:8000/spotify/is-authenticated`)
-        .then((res) => res.json()).then((data) => { setisAuth(data.isAuthenticated);
-             if(!data.isAuthenticated){
-                fetch(`http://127.0.0.1:8000/spotify/auth-url`).then((res) => res.json()).then((data) => window.location.replace(data.url))
-        }})
-        console.log(is_authenticated, 'is auth')
+    const authenticateSpotify = async () =>{
+        const is_authenticated = await fetch(`http://127.0.0.1:8000/spotify/is-authenticated`)
+        .then((res) => res.json())
+        setisAuth(is_authenticated);
+        if(!is_authenticated.isAuthenticated){
+           const authUrl = await fetch(`http://127.0.0.1:8000/spotify/auth-url`).then((res) => res.json())
+           console.log(authUrl.url, 'auth url')
+           window.location.replace(authUrl.url)
+        }
+        console.log(is_authenticated.isAuthenticated, isAuth, 'is auth')
     }
-
     
     return (
         <Container className='playground-class'>

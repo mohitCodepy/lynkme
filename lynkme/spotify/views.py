@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL
 from requests import Request, post
 from .utils import update_or_create_token, is_spotify_authenticated
+from api.models import Zone
 
 # Create your views here.
 class AuthUrlView(ListAPIView):
@@ -36,13 +37,19 @@ def spotify_callback(request):
     expires_in = response.get('expires_in')
     error = response.get('error')
 
-    if request.session.exists(request.session.session_key):
+    print(request.session.session_key, 'session key')
+
+    if not request.session.exists(request.session.session_key):
         request.session.create()
+    get_user_code = Zone.objects.filter(host = request.session.session_key)
+    print(get_user_code, 'user code')
+    user_zone_code = ''
+    if get_user_code.exists():
+        user_zone_code = get_user_code[0]
     update_or_create_token(request.session.session_key, access_token, token_type, expires_in, refresh_token)
-    return redirect('/')
+    return redirect(f'http://127.0.0.1:3000/music-playground/{user_zone_code}')
 
 class IsAuthenticated(ListAPIView):
     def get(self, request, *args, **kwargs):
         is_authenticated  = is_spotify_authenticated(request.session.session_key)
-        return Response({'status' : 200, 'isAuthencated' : is_authenticated }, status= status.HTTP_200_OK)
-
+        return Response({'status' : 200, 'isAuthenticated' : is_authenticated }, status= status.HTTP_200_OK)

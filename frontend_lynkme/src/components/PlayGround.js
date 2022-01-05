@@ -1,34 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
-
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 export default function PlayGround() {
+    
 
     const [zoneData, setzoneData] = useState([])
     const [isAuth, setisAuth] = useState(false)
 
     useEffect(() => {
         getZone();
+        axios.defaults.withCredentials = true;
         // eslint-disable-next-line
     },[])
 
     const param = useParams();
     const getZone = async () => {
-        const fetchedZone = await fetch(`${window.BACKEND_URL}/zone/${param.zone}`).then(res => res.json());
-        setzoneData(fetchedZone.data);
+        const fetchedZone = await axios.get(`${window.BACKEND_URL}/zone/${param.zone}`,{
+            withCredentials: true,
+            headers: {'Content-Type': 'application/json'}}).then(res => res);
+        setzoneData(fetchedZone.data.data);
+        console.log(fetchedZone.data.data, 'fetchedZone is here')
         await authenticateSpotify()
     }
 
     const authenticateSpotify = async () =>{
-        const is_authenticated = await fetch(`http://127.0.0.1:8000/spotify/is-authenticated`)
-        .then((res) => res.json())
-        setisAuth(is_authenticated);
-        if(!is_authenticated.isAuthenticated){
-           const authUrl = await fetch(`http://127.0.0.1:8000/spotify/auth-url`).then((res) => res.json())
-           console.log(authUrl.url, 'auth url')
+        const is_authenticated = await axios.get(`http://127.0.0.1:8000/spotify/is-authenticated`,{
+            withCredentials: true,
+            headers: {'Content-Type': 'application/json'}})
+        .then((res) => res)
+        setisAuth(is_authenticated.data.isAuthenticated);
+        if(!is_authenticated.data.isAuthenticated){
+           const authUrl = await axios.get(`http://127.0.0.1:8000/spotify/auth-url`,{
+            withCredentials: true,
+            headers: {'Content-Type': 'application/json'}}).then((res) => res)
+           console.log(authUrl.data.url, 'auth url')
            window.location.replace(authUrl.url)
         }
-        console.log(is_authenticated.isAuthenticated, isAuth, 'is auth')
     }
     
     return (

@@ -104,6 +104,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -129,7 +135,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
-SESSION_COOKIE_DOMAIN = '127.0.0.1'
-SESSION_COOKIE_SAMESITE = False
-SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_PATH = '/music-playground/'
+CORS_ALLOW_CREDENTIALS = True

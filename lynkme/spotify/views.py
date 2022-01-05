@@ -51,5 +51,6 @@ def spotify_callback(request):
 
 class IsAuthenticated(ListAPIView):
     def get(self, request, *args, **kwargs):
+        print(self.request.session.session_key, 'is auth')
         is_authenticated  = is_spotify_authenticated(request.session.session_key)
         return Response({'status' : 200, 'isAuthenticated' : is_authenticated }, status= status.HTTP_200_OK)

@@ -3,10 +3,11 @@ import { Form, Row, Col, Button, Container, FloatingLabel } from "react-bootstra
 import axios from "axios";
 import { Navigate } from 'react-router-dom'
 
-
 export default class CreateZone extends Component {
-
+    // const navigate = useNavigate();
+    
     constructor(props) {
+        axios.defaults.withCredentials = true;
         super(props)
         this.state = {
             guestCanPause: true,
@@ -24,7 +25,7 @@ export default class CreateZone extends Component {
             "votes_to_skip": this.state.numOfVotes
         }
     
-        const createdZone = await axios.post(`${window.BACKEND_URL}/create-zone/`,data, { headers: { 'Content-Type': 'application/json' } }).then(res => res);
+        const createdZone = await axios.post(`http://127.0.0.1:8000/api/create-zone/`, data).then(res => res);
         console.log(createdZone.data.zone_num, 'created');
         await this.setState({zoneCreated : true, zoneNum : createdZone.data.zone_num})
         console.log(this.state.zoneNum, 'zone number')
@@ -90,8 +91,7 @@ export default class CreateZone extends Component {
                                 <Container>
                                     <Row>
                                       <Col sm="12">  
-                                      {this.state.guestCanPause ?      <FloatingLabel controlId="join-zone-label-id" label="No. of votes to skip" style={{ 'color': 'white', 'fontSize': 'normal' }}>
-
+                                      {this.state.guestCanPause ? <FloatingLabel controlId="join-zone-label-id" label="No. of votes to skip" style={{ 'color': 'white', 'fontSize': 'normal' }}>
                                                 <Form.Control type="number" placeholder="T1E2S3T4"
                                                     className="join-class-input"
                                                     style={{ 'color': 'white', 'fontWeight': 'bolder', 'backgroundColor': 'transparent', 'textAlign': 'center', 'fontSize': 'large', 'borderLeft': '0', 'borderRight': '0', 'borderTop': '0', 'borderBottomWidth': '3px', 'paddingTop': '35px', 'borderRadius': '7px' }} onFocus={this.removeBorder} autoComplete="off" onChange={this.minVotes} />
@@ -110,7 +110,7 @@ export default class CreateZone extends Component {
                         </Row>
                     </Container>
                 </Form>
-                { this.state.zoneCreated && <Navigate to={'/music-playground/' + this.state.zoneNum}/>}
+                { this.state.zoneCreated && <Navigate to={'/music-playground/' + this.state.zoneNum} replace={true}/>}
             </div>
         );
     }

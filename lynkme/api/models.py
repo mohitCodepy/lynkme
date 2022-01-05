@@ -23,9 +23,14 @@ class Zone(BaseClass):
 
     def save(self, *args, **kwargs):
         code = get_random_code()
+        host_exists = Zone.objects.filter(host = self.host)
+
         if Zone.objects.filter(zone_num = code).exists():
             get_random_code()
-        self.zone_num = code
+        if host_exists.exists():
+            host_exists.zone_num = code 
+        else:
+            self.zone_num = code
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:

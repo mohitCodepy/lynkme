@@ -1,3 +1,4 @@
+from django.db import connections
 from django.shortcuts import redirect, render
 import requests
 from requests.sessions import session
@@ -19,6 +20,7 @@ class AuthUrlView(ListAPIView):
             'redirect_uri' : REDIRECT_URL,
             'client_id' : CLIENT_ID,
         }).prepare().url
+        print(url)
         return Response({'url': url}, status= status.HTTP_200_OK)
         
 def spotify_callback(request):
@@ -31,6 +33,7 @@ def spotify_callback(request):
         'client_id' : CLIENT_ID,
         'client_secret': CLIENT_SECRET
     }).json()
+    print(response, 'response')
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     refresh_token = response.get('refresh_token')
@@ -46,11 +49,12 @@ def spotify_callback(request):
     user_zone_code = ''
     if get_user_code.exists():
         user_zone_code = get_user_code[0]
-    update_or_create_token(request.session.session_key, access_token, token_type, expires_in, refresh_token)
+    update_or_create_token(request.session.session_key, access_token, token_type, refresh_token, expires_in)
     return redirect(f'http://127.0.0.1:3000/music-playground/{user_zone_code}')
 
 class IsAuthenticated(ListAPIView):
     def get(self, request, *args, **kwargs):
         print(self.request.session.session_key, 'is auth')
-        is_authenticated  = is_spotify_authenticated(request.session.session_key)
+        is_authenticated  = is_spotify_authenticated(self.request.session.session_key)
+        print(is_authenticated, 'is ')
         return Response({'status' : 200, 'isAuthenticated' : is_authenticated }, status= status.HTTP_200_OK)

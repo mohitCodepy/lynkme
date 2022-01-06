@@ -36,7 +36,7 @@ export default function PlayGround() {
             withCredentials: true,
             headers: {'Content-Type': 'application/json'}}).then((res) => res)
            console.log(authUrl.data.url, 'auth url')
-           window.location.replace(authUrl.url)
+           window.location.replace(authUrl.data.url)
         }
     }
     
